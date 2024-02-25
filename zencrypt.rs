@@ -102,17 +102,22 @@ fn main() {
     let key: [u8; 32] = [0; 32]; // Replace with your key
     let iv: [u8; 12] = [0; 12]; // Replace with your IV
 
-    // Encryption/decryption 
-    println!("Enter text to encrypt:");
+    // Encryption/decryption
+    println!("Enter key for encryption/decryption:");   // Prompt user to enter key
+    let mut key_input = String::new();  
+    stdin().read_line(&mut key_input).expect("Failed to read line");
+    let key = key_input.trim().as_bytes(); 
+    
+    println!("Enter text to encrypt:"); // Prompt user to enter text to encrypt
     let mut text = String::new();
     stdin().read_line(&mut text).expect("Failed to read line");
 
     let encrypted = encrypt_text(&text.trim(), &key, &iv);
-    println!("Encrypted text: {:?}", encrypted);
+    println!("Encrypted text: {:?}", encrypted);    // Print encrypted text
 
     match decrypt_text(&encrypted, &key, &iv) {
         Some(decrypted) => println!("Decrypted text: {}", decrypted),
-        None => println!("Decryption failed"),
+        None => println!("Decryption failed"),  // Print decrypted text
     }
 
     // Hashing 
